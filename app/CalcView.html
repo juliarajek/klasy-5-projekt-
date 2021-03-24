@@ -1,0 +1,58 @@
+{extends file="../templates/main.html"}
+
+{block name=footer}przykładowa tresć stopki wpisana do szablonu głównego z szablonu kalkulatora{/block}
+
+{block name=content}
+
+<h3>Prosty kalkulator</h2>
+
+
+<form class="pure-form pure-form-stacked" action="{$conf->app_url}/app/calc.php" method="post">
+	<fieldset>
+		<label for="x"> Podaj kwote kredytu: </label>
+                <input id="x" type="text" placeholder="wartość x" name="x" value="($form->x)" /> <br/><br>
+                <label for="y"> Podaj na ile lat: </label>
+                <input id="y" type="text" placeholder="wartość y" name="y" value="($form->y)" /> <br/><br>
+                <label for="z"> Podaj oprocentowanie: </label>
+                <input id="z" type="text" placeholder="wartość z" name="z" value="($form->z)" /> <br/><br>
+				
+	</fieldset>
+	<button type="submit" class="pure-button pure-button-primary">Oblicz</button>
+</form>
+
+<div class="messages">
+
+{* wyświeltenie listy błędów, jeśli istnieją *}
+{if $msgs->isError()}
+	<h4>Wystąpiły błędy: </h4>
+	<ol class="err">
+	{foreach $msgs->getErrors() as $err}
+	{strip}
+		<li>{$err}</li>
+	{/strip}
+	{/foreach}
+	</ol>
+{/if}
+
+{* wyświeltenie listy informacji, jeśli istnieją *}
+{if $msgs->isInfo()}
+	<h4>Informacje: </h4>
+	<ol class="inf">
+	{foreach $msgs->getInfos() as $inf}
+	{strip}
+		<li>{$inf}</li>
+	{/strip}
+	{/foreach}
+	</ol>
+{/if}
+
+{if isset($res->result)}
+	<h4>Wynik</h4>
+	<p class="res">
+	{$res->result}
+	</p>
+{/if}
+
+</div>
+
+{/block}
